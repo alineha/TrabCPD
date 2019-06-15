@@ -19,7 +19,7 @@ class HashMovieNode:
 
 class HashMovie:
 
-	def __init__(self, size = 64):
+	def __init__(self, size = 28000):
 
 		self.size = size
 
@@ -38,28 +38,29 @@ class HashMovie:
 			if movieID == self.table[code].movieID:
 				self.nodeUpdt(code, rating)
 				return
-			else: code, t = self.search(code, t)
+			else: code, t = self.colision(code, t)
 
-		self.table[code] = HashMovieNode(title, movieID, genres, rating)
+		self.table[code] = HashMovieNode(movieID, title, genres, rating)
 		self.incTaken()
 		self.reSize()
 			
 
-	def search(self, code, t):
+	def colision(self, code, t):
 
 		t = t + 1
 		code = int(code + 0.5*t + 0.5*t*t) % self.size
 		return code, t
 
-	def searchTitle(self, movieID):
+	def search(self, movieID):
 
 		t = 0
 		code = movieID % self.size
 		while self.table[code] != None:
 			if movieID == self.table[code].movieID:
-				return self.table[code].title
-			else: code, t = self.search(code, t)
+				return self.table[code]
+			else: code, t = self.colision(code, t)
 		return None
+
 
 
 	def nodeUpdt(self, code, rating):
@@ -103,7 +104,7 @@ class HashUserNode:
 
 		self.userID = userID
 
-		#LISTA de dicionarios com movieID: rating
+		#LISTA de dicionarios com {movieID: rating}
 		self.userRat = userRat
 
 
@@ -114,7 +115,7 @@ class HashUserNode:
 
 class HashUser:
 
-	def __init__(self, size = 64):
+	def __init__(self, size = 28000):
 
 		self.size = size
 
@@ -134,7 +135,7 @@ class HashUser:
 			if userID == self.table[code].userID:
 				self.nodeUpdt(code, movieID, rating)
 				return
-			else: code, t = self.search(code, t)
+			else: code, t = self.colision(code, t)
 
 		auxRat = {}
 		auxRat[movieID] = rating 
@@ -144,12 +145,23 @@ class HashUser:
 		del auxRat
 			
 
-	def search(self, code, t):
+	def colision(self, code, t):
 
 		c = 0.5
 		t = t + 1
 		code = int(code + c*t + c*t*t) % self.size
 		return code, t
+
+	def search(self, userID):
+
+		t = 0
+		code = userID % self.size
+		while self.table[code] != None:
+			if userID == self.table[code].userID:
+				print("AAAAAAAAA")
+				return self.table[code]
+			else: code, t = self.colision(code, t)
+		return None
 
 
 	def nodeUpdt(self, code, movieID, rating):
