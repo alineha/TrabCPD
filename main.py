@@ -5,31 +5,49 @@ from input import *
 
 def searchTitle(trie, hashMovie):
 
-	prefix = input("Insira nome ou prefixo do filme: ")
-	while prefix != 'quit':
-		for MovieID in trie.search(prefix):
-			print(hashMovie.search(MovieID))
-		prefix = input("\nInsira nome ou prefixo do filme: ")
+	prefix = "Star Wars"#input("Insira nome ou prefixo do filme: ")
+	#while prefix != 'quit':
+	for MovieID in trie.search(prefix):
+		print(search(hashMovie, MovieID))
+		#prefix = input("\nInsira nome ou prefixo do filme: ")
 
 def searchUser(hashMovie, hashUser):
 
-	#userID = input("Insira ID do usuario: ")
-	user = hashUser.search(48644)
+	#info = input("Insira ID do usuario: ")
+	user = search(hashUser,48644)
+
 	print(user)
 
-	#while userID != 'quit':
-	for MovieID,rating in user.userRat.items():
-		node = hashMovie.search(MovieID)
+	#while info != 'quit':
+	for MovieID,rating in user.ratings.items():
+		node = search(hashMovie,MovieID)
 		print(node.title,MovieID,rating)
-	prefix = input("\nInsira nome ou prefixo do filme: ")
+	#info = input("\nInsira ID de usuario: ")
 
+def searchGenre(hashGenre):
 
+	info = "top10 Fantasy"#input("Insira nome ou prefixo do filme: ")
+	#while info != 'quit':
+	top = info[3 : info.find(" ")]
+	genre = info[info.find(" ") + 1 :]
+	
+	node = searchStr(hashGenre, genre)
+
+	i = 0
+	print("\n--- TOP "+ top +" "+ genre.upper() + " ---\n")
+	for movie in node.movies:
+		print(movie)
+		i += 1
+		if i >= int(top): break 
+		
+		
 def main():
 	
-	trie, hashMovie, hashUser = openF()
-	# searchTitle(trie, hashMovie)
-	searchUser(hashMovie,hashUser)
-
+	trie, hashMovie, hashUser, hashGenre = openF()
+	#searchTitle(trie, hashMovie)
+	#searchUser(hashMovie, hashUser)
+	#hashGenre.printHash()
+	searchGenre(hashGenre)
 
 
 
