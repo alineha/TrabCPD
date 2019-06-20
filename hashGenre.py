@@ -23,8 +23,6 @@ class HashGenre:
 
 		self.taken = 0
 
-		self.rate = (self.taken / self.size)*100
-		
 
 	def insert(self, genre, movie):
 		
@@ -32,19 +30,19 @@ class HashGenre:
 		code = 0
 
 		for ch in genre:
-			code = (code*33 + ord(ch))
-		code = code % self.size
+			code = (code*33 + ord(ch)) % self.size
 
 		while self.table[code] != None:
+
 			if genre == self.table[code].genre:
 				self.nodeUpdt(code, movie)
 				return
-			else: code, t = self.colision(code, t)
+			else: 
+				code, t = self.colision(code, t)
 
 		self.table[code] = HashGenreNode(genre)
 		self.nodeUpdt(code, movie)
-		self.incTaken()
-		#self.reSize()
+		self.taken += 1
 
 
 	def colision(self, code, t):
@@ -57,21 +55,6 @@ class HashGenre:
 	def nodeUpdt(self, code, movie):
 	
 		self.table[code].movies.append(movie)
-		
-
-	def reSize(self):
-
-		if self.rate >= 67:
-			listAux = [None]*self.size 
-			self.table.extend(listAux) 
-			del listAux
-			self.size = len(self.table)
-			self.rate = (self.taken/self.size)*100
-
-
-	def incTaken(self):
-		self.taken = self.taken + 1
-		self.rate = (self.taken/self.size)*100
 
 
 	def printHash(self):
@@ -84,4 +67,4 @@ class HashGenre:
 
 
 	def __str__(self):
-		return " * SIZE: {} | TAKEN: {} | RATE: {}".format(self.size, self.taken, self.rate)
+		return " * SIZE: {} | TAKEN: {} | RATE: {}".format(self.size, self.taken, (self.taken/self.size)*100)
