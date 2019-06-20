@@ -16,12 +16,10 @@ def searchUser(hashMovie, hashUser):
 	#info = input("Insira ID do usuario: ")
 	user = search(hashUser,48644)
 
-	print(user)
-
 	#while info != 'quit':
-	for MovieID,rating in user.ratings.items():
-		node = search(hashMovie,MovieID)
-		print(node.title,MovieID,rating)
+	for movieID, rating in user.ratings.items():
+		node = search(hashMovie, movieID)
+		print(str(node) + " | USER "+ str(48644) + " RATING: " + str(rating))
 	#info = input("\nInsira ID de usuario: ")
 
 def searchGenre(hashGenre):
@@ -44,11 +42,13 @@ def searchGenre(hashGenre):
 def main():
 	
 	trie, hashMovie, hashUser, hashGenre = openF()
+
+	#hashMovie.printHash()
+	#hashUser.printHash()
+	#hashGenre.printHash()
 	#searchTitle(trie, hashMovie)
 	#searchUser(hashMovie, hashUser)
-	#hashGenre.printHash()
-	searchGenre(hashGenre)
-
+	#searchGenre(hashGenre)
 
 
 if __name__ == "__main__":

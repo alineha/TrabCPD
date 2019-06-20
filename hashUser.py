@@ -17,15 +17,13 @@ class HashUserNode:
 
 class HashUser:
 
-	def __init__(self, size = 28000):
+	def __init__(self, size = 20000):
 
 		self.size = size
 
 		self.table = [None]*size
 
 		self.taken = 0
-
-		self.rate = (self.taken / self.size)*100
 		
 
 	def insert(self, userID, movieID, rating):
@@ -34,16 +32,17 @@ class HashUser:
 		code = userID % self.size
 
 		while self.table[code] != None:
+
 			if userID == self.table[code].userID:
 				self.nodeUpdt(code, movieID, rating)
 				return
 			else: code, t = self.colision(code, t)
 
+		#hmmmmm n pode usar dicionario ne
 		auxRat = {}
 		auxRat[movieID] = rating 
 		self.table[code] = HashUserNode(userID, auxRat)
-		self.incTaken()
-		self.reSize()
+		self.taken += 1
 		del auxRat
 
 	def colision(self, code, t):
@@ -57,21 +56,6 @@ class HashUser:
 		self.table[code].ratings[movieID] = rating
 
 
-	def reSize(self):
-
-		if self.rate >= 67:
-			listAux = [None]*self.size 
-			self.table.extend(listAux) 
-			del listAux
-			self.size = len(self.table)
-			self.rate = (self.taken/self.size)*100
-
-
-	def incTaken(self):
-		self.taken = self.taken + 1
-		self.rate = (self.taken/self.size)*100
-
-
 	def printHash(self):
 		print(self)
 		for nodo in self.table:
@@ -79,4 +63,4 @@ class HashUser:
 
 
 	def __str__(self):
-		return " * SIZE: {} | TAKEN: {} | RATE: {}".format(self.size, self.taken, self.rate)
+		return " * SIZE: {} | TAKEN: {} | RATE: {}".format(self.size, self.taken, (self.taken/self.size)*100)

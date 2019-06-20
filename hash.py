@@ -3,45 +3,41 @@ from hashMovie import *
 from hashUser import *
 from hashGenre import *
 
-def search(hashT, key):
+
+def search(hashT, ID):
 
 	t = 0
-	code = key % hashT.size
+	code = ID % hashT.size
 
 	while hashT.table[code] != None:
 
 		if isinstance(hashT, HashMovie):
-			ID = hashT.table[code].movieID
-		else: 
-			ID = hashT.table[code].userID
+			key = hashT.table[code].movieID
 
-		if key == ID: 
-			return hashT.table[code]
-		else: 
-			code, t = colision(hashT, code, t)
+		else: key = hashT.table[code].userID
+
+		if ID == key: return hashT.table[code]
+		else: code, t = colision(hashT, code, t)
 
 	return None
 
-def searchStr(hashT, key):
+def searchStr(hashT, string):
 
 	t = 0
 	code = 0
 
-	for ch in key:
-		code = (code*33 + ord(ch))
-	code = code % hashT.size
+	for ch in string:
+		code = (code*33 + ord(ch)) % hashT.size
 
 	while hashT.table[code] != None:
 
 		if isinstance(hashT, HashGenre):
-			selected = hashT.table[code].genre
+			key = hashT.table[code].genre
 		#else: 
-		#	ID = hashT.table[code].userID
+		#	key = hashT.table[code].tag
 
-		if key == selected: 
-			return hashT.table[code]
-		else: 
-			code, t = colision(hashT, code, t)
+		if string == key: return hashT.table[code]
+		else: code, t = colision(hashT, code, t)
 
 	return None
 
