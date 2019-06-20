@@ -6,7 +6,7 @@ class HashUserNode:
 
 		self.userID = userID
 
-		#LISTA de dicionarios com {movieID: rating}
+		#LISTA de listas no formato [movieID, rating]
 		self.ratings = ratings
 
 
@@ -32,18 +32,15 @@ class HashUser:
 		code = userID % self.size
 
 		while self.table[code] != None:
-
 			if userID == self.table[code].userID:
 				self.nodeUpdt(code, movieID, rating)
 				return
 			else: code, t = self.colision(code, t)
 
-		#hmmmmm n pode usar dicionario ne
-		auxRat = {}
-		auxRat[movieID] = rating 
-		self.table[code] = HashUserNode(userID, auxRat)
+		aux = [[movieID, rating]]
+		self.table[code] = HashUserNode(userID, aux)
 		self.taken += 1
-		del auxRat
+		del aux
 
 	def colision(self, code, t):
 
@@ -52,8 +49,7 @@ class HashUser:
 		return code, t
 
 	def nodeUpdt(self, code, movieID, rating):
-	
-		self.table[code].ratings[movieID] = rating
+		self.table[code].ratings.append([movieID, rating])
 
 
 	def printHash(self):
