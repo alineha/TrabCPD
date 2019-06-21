@@ -60,9 +60,9 @@ def openF():
 				hashGenre.insert(genre, movie)
 
 	#ordena a lista do genero na hash genre por ratings
-	for node in hashGenre.table:
-		if node != None:
-			node.movies.sort(key=takeRatings, reverse=True)
+	#for node in hashGenre.table:
+	#	if node != None:
+	#		node.movies.sort(key=takeRatings, reverse=True)
 
 
 	ftag = open('tag.csv', 'r', encoding='utf8')
