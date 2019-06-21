@@ -11,10 +11,12 @@ def openF():
 	trie = Trie()
 	hashMovie = HashMovie()
 	hashUser = HashUser()
-	hashGenre = HashGenre()
+	hashGenre = HashString()
+	hashTag = HashTag()
 
 	frat =  open('minirating.csv', 'r', encoding="utf8") 
 	fmovie = open('movie.csv', 'r', encoding="utf8")
+	ftag = open('tag.csv', 'r', enconding='utf8')
 	csv_fmovie = csv.reader(fmovie)
 	next(csv_fmovie)
 	next(frat)
@@ -48,6 +50,8 @@ def openF():
 	frat.close()
 	fmovie.close()
 
+
+
 	# para cada filme na hash movie ve todos os generos da sua lista e copia esse filme 
 	# (o nodo inteiro, não só o ID e rating) para lista do genero correspondente do hash genre
 	for movie in hashMovie.table:
@@ -60,6 +64,14 @@ def openF():
 		if node != None:
 			node.movies.sort(key=takeRatings, reverse=True)
 
+	csv_ftag = csv.reader(ftag)
+	next(csv_ftag)
+
+	for line in csv_ftag:
+		movieID = line[1]
+		tag = line[2]
+
+		hashTag.insert(movieID, tag)
 
 	return trie, hashMovie, hashUser, hashGenre
 

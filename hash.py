@@ -1,7 +1,8 @@
 #coding=UTF-8
 from hashMovie import *
 from hashUser import *
-from hashGenre import *
+from hashString import *
+from hashTag import * 
 
 
 def search(hashT, ID):
@@ -21,7 +22,7 @@ def search(hashT, ID):
 
 	return None
 
-def searchStr(hashT, string):
+def searchStr(hashT, word):
 
 	t = 0
 	code = 0
@@ -31,12 +32,12 @@ def searchStr(hashT, string):
 
 	while hashT.table[code] != None:
 
-		if isinstance(hashT, HashGenre):
-			key = hashT.table[code].genre
+		if isinstance(hashT, HashString):
+			key = hashT.table[code].string
 		#else: 
 		#	key = hashT.table[code].tag
 
-		if string == key: return hashT.table[code]
+		if word == key: return hashT.table[code]
 		else: code, t = colision(hashT, code, t)
 
 	return None
