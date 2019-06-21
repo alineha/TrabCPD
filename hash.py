@@ -2,7 +2,6 @@
 from hashMovie import *
 from hashUser import *
 from hashString import *
-from hashTag import * 
 
 
 def search(hashT, ID):
@@ -34,8 +33,6 @@ def searchStr(hashT, word):
 
 		if isinstance(hashT, HashString):
 			key = hashT.table[code].string
-		#else: 
-		#	key = hashT.table[code].tag
 
 		if word == key: return hashT.table[code]
 		else: code, t = colision(hashT, code, t)

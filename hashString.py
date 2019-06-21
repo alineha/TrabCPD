@@ -15,7 +15,7 @@ class HashStringNode:
 
 class HashString:
 
-	def __init__(self, size = 50):
+	def __init__(self, size):
 
 		self.size = size
 

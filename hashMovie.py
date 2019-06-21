@@ -19,7 +19,7 @@ class HashMovieNode:
 
 class HashMovie:
 
-	def __init__(self, size = 50000):
+	def __init__(self, size):
 
 		self.size = size
 
@@ -41,7 +41,6 @@ class HashMovie:
 			else: code, t = self.colision(code, t)
 
 		self.table[code] = HashMovieNode(movieID, title, genres, rating)
-		self.incTaken()
 
 		self.taken += 1
 
@@ -49,7 +48,7 @@ class HashMovie:
 	def colision(self, code, t):
 
 		t = t + 1
-		code = int(code + 0.5*t + 0.5*t*t) % self.size
+		code = int(code + 31*t + t*t) % self.size
 		return code, t
 
 
@@ -58,7 +57,7 @@ class HashMovie:
 		if self.table[code].meanRat == None:
 			self.table[code].meanRat = rating
 
-		else: self.table[code].meanRat = (rating + self.table[code].meanRat*count)/(count+1)
+		else: self.table[code].meanRat = (rating + self.table[code].meanRat*self.taken)/(self.taken+1)
 		
 		self.table[code].count += 1
 

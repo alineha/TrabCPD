@@ -9,17 +9,14 @@ def takeRatings(elem):
 def openF():
 
 	trie = Trie()
-	hashMovie = HashMovie()
-	hashUser = HashUser()
-	hashGenre = HashString()
-	hashTag = HashTag()
+	hashMovie = HashMovie(size = 60000)
+	hashUser = HashUser(size = 30000000)
+	hashGenre = HashString(size = 100)
+	hashTag = HashString(size = 70000)
 
-	frat =  open('minirating.csv', 'r', encoding="utf8") 
 	fmovie = open('movie.csv', 'r', encoding="utf8")
-	ftag = open('tag.csv', 'r', enconding='utf8')
 	csv_fmovie = csv.reader(fmovie)
 	next(csv_fmovie)
-	next(frat)
 
 	for line in csv_fmovie:
 
@@ -34,10 +31,16 @@ def openF():
 		trie.insert(title,movieID)
 		#temos que preencher as ratings em outro arquivo 
 		hashMovie.insert(movieID, title, genres, None)
-	
 
+	fmovie.close()
+
+	frat =  open('rating.csv', 'r', encoding="utf8") 
+	next(frat)
+
+	#i=0
 	for line in frat:
-
+		#print(i)
+		#i+=1
 		line = line.split(",")
 		userID = int(line[0])
 		movieID = int(line[1])
@@ -48,9 +51,6 @@ def openF():
 		hashUser.insert(userID, movieID, rating)
 
 	frat.close()
-	fmovie.close()
-
-
 
 	# para cada filme na hash movie ve todos os generos da sua lista e copia esse filme 
 	# (o nodo inteiro, não só o ID e rating) para lista do genero correspondente do hash genre
@@ -64,15 +64,18 @@ def openF():
 		if node != None:
 			node.movies.sort(key=takeRatings, reverse=True)
 
+
+	ftag = open('tag.csv', 'r', encoding='utf8')
 	csv_ftag = csv.reader(ftag)
 	next(csv_ftag)
 
 	for line in csv_ftag:
 		movieID = line[1]
 		tag = line[2]
+		hashTag.insert(tag, movieID)
 
-		hashTag.insert(movieID, tag)
+	ftag.close()
 
-	return trie, hashMovie, hashUser, hashGenre
+	return trie, hashMovie, hashUser, hashGenre, hashTag
 
 		

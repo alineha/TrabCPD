@@ -37,11 +37,30 @@ def searchGenre(hashGenre):
 		print(movie)
 		i += 1
 		if i >= int(top): break 
-		
-		
-def main():
+
+def searchTags(hashGenre):
+
+	info = "'Brazil' 'drugs'"
+
+	beg = 0
+	end = len(info)
 	
-	trie, hashMovie, hashUser, hashGenre = openF()
+	tags = [ info[info.find("'", beg, end) : info.find("'", info.find("'", beg, end), end)] ]
+	
+	while beg != end:
+		beg = info.find("'", beg, end)
+		tags.append(info[beg : info.find("'", beg, end)])
+
+	node = []
+
+	for tag in tags:
+		node.append(searchStr(hashGenre, genre))
+	
+	#tem que arranjar um jeito de fazer a intersecção das listas desses nodos
+
+def main():
+
+	trie, hashMovie, hashUser, hashGenre, hashTag = openF()
 
 	#hashMovie.printHash()
 	#hashUser.printHash()
@@ -49,7 +68,7 @@ def main():
 	#searchTitle(trie, hashMovie)
 	#searchUser(hashMovie, hashUser)
 	#searchGenre(hashGenre)
-
+	#searchTags(hashTags)
 
 if __name__ == "__main__":
     main()
