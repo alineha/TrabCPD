@@ -45,7 +45,7 @@ class HashUser:
 	def colision(self, code, t):
 
 		t = t + 1
-		code = int(code + 0.5*t + 0.5&t*t) % self.size
+		code = int(code + 0.5*t + 0.5*t*t) % self.size
 		return code, t
 
 	def nodeUpdt(self, code, movieID, rating):
@@ -54,8 +54,8 @@ class HashUser:
 
 	def printHash(self):
 		print(self)
-		for nodo in self.table:
-			print(str(nodo))
+		#for nodo in self.table:
+		#	print(str(nodo))
 
 
 	def __str__(self):

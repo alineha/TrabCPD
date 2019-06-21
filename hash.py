@@ -26,13 +26,11 @@ def searchStr(hashT, word):
 	t = 0
 	code = 0
 
-	for ch in string:
+	for ch in word:
 		code = (code*33 + ord(ch)) % hashT.size
 
 	while hashT.table[code] != None:
-
-		if isinstance(hashT, HashString):
-			key = hashT.table[code].string
+		key = hashT.table[code].string
 
 		if word == key: return hashT.table[code]
 		else: code, t = colision(hashT, code, t)

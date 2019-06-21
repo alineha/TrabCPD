@@ -59,12 +59,13 @@ class HashString:
 
 	def printHash(self):
 		print(self)
+		'''
 		for nodo in self.table:
 			if nodo != None:
 				print("\n----- STRING: " + nodo.string + " -----\n")
 				for movie in nodo.movies:
 					print(str(movie))
-
+		'''
 
 	def __str__(self):
 		return " * SIZE: {} | TAKEN: {} | RATE: {}".format(self.size, self.taken, (self.taken/self.size)*100)
