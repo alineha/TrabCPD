@@ -48,7 +48,7 @@ class HashMovie:
 	def colision(self, code, t):
 
 		t = t + 1
-		code = int(code + 31*t + t*t) % self.size
+		code = int(code + 0.5*t + 0.5*t*t) % self.size
 		return code, t
 
 
