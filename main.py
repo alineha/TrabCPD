@@ -17,9 +17,9 @@ def searchUser(hashMovie, hashUser):
 	user = search(hashUser,48644)
 
 	#while info != 'quit':
-	for movieID, rating in user.ratings.items():
-		node = search(hashMovie, movieID)
-		print(str(node) + " | USER "+ str(48644) + " RATING: " + str(rating))
+	for lista in user.ratings:
+		node = search(hashMovie, lista[0])
+		print(str(node) + " | USER "+ str(48644) + " RATING: " + str(lista[1]))
 	#info = input("\nInsira ID de usuario: ")
 
 def searchGenre(hashGenre):
