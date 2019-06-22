@@ -3,8 +3,7 @@ def merge(lList, rList, byRatings, reverse):
     final = []
 
     while lList or rList:
-        # This verification is necessary for not try to compare
-        # a NoneType with a valid type.
+
         if len(lList) and len(rList):
             
             if byRatings == True:
@@ -34,7 +33,7 @@ def merge(lList, rList, byRatings, reverse):
 
 
 def mergesort(list, byRat = False, rev = False):
-    #Sort the list passed by argument with merge.
-    if len(list) < 2: return list
+
+    if len(list) <= 1: return list
     mid = int(len(list)/2)
     return merge(mergesort(list[:mid], byRat, rev), mergesort(list[mid:], byRat, rev), byRat, rev)
