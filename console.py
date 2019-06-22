@@ -2,7 +2,7 @@ from os import system, name
 from searchFunctions import *
 import re
 
-def clrscr(wait=True): 
+def clrscr(wait = True): 
   
     if wait: input("Pressione ENTER para continuar...\n")
 
@@ -16,12 +16,11 @@ def console(trie, hashMovie, hashUser, hashGenre, hashTag):
 
         word = input("\nEnter the function: ")
         clrscr(False)
-        print(word)
 
         if word[:5] == "movie":
 
             prefix = word[5:].strip()
-            searchTitle(trie, hashMovie, prefix)
+            searchTitle(trie, hashMovie, prefix.lower())
             
         elif word[:4] == "user":
 
@@ -29,7 +28,7 @@ def console(trie, hashMovie, hashUser, hashGenre, hashTag):
                 userID = int(word[4:].strip())
                 searchUser(hashUser, hashMovie, userID)
             except:
-                print("Incorrect Formating")
+                print("Something is wrong")
                     
         elif word[:3] == "top":
 
@@ -38,10 +37,9 @@ def console(trie, hashMovie, hashUser, hashGenre, hashTag):
             try:
                 top = int(top)
                 genre = word[space:].strip()
-                print(genre)
                 searchGenre(hashGenre, hashMovie, top, genre)
             except:
-                print("Incorrect Formating")
+                print("Something is wrong")
             
         elif word[:4] == "tags":
 
@@ -57,6 +55,6 @@ def console(trie, hashMovie, hashUser, hashGenre, hashTag):
             print("Program ended gracefully")
 
         else: 
-            print("This command doesn't exist. Type \"quit\" to end execution.")
+            print("Invalid function. Type \"quit\" to exit program.")
     
     

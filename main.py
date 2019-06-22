@@ -11,7 +11,7 @@ def main():
 
 	t1 = time.time()
 	total = t1-t0
-	print("\nFinished Loading. Time:",total)
+	print("\nFinished building data estructures. Time:",total)
 
 	console(trie, hashMovie, hashUser, hashGenre, hashTag)
 	

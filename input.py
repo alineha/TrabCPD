@@ -1,26 +1,14 @@
 from hashFunctions import *
 from trie import *
 import csv
-import searchFunctions
 
 def openF():
 
 	trie = Trie()
-	
-	#RATING GIGANTE
-	
 	hashMovie = HashMovie(size = 45000)
 	hashUser = HashUser(size = 250000)
 	hashGenre = HashString(size = 50)
 	hashTag = HashString(size = 65000)
-	
-
-	#RATING MINI
-	
-	#hashMovie = HashMovie(size = 45000)
-	#hashUser = HashUser(size = 20000)
-	#hashGenre = HashString(size = 50)
-	#hashTag = HashString(size = 65000)
 	
 
 	fmovie = open('movie.csv', 'r', encoding="utf8")
@@ -40,12 +28,11 @@ def openF():
 
 		else: genres = None
 
-		trie.insert(title,movieID)
+		trie.insert(title.lower(), movieID)
 		hashMovie.insert(movieID, title, genres, None)
 
 	fmovie.close()
 
-	#frat =  open('ratingOpt.csv', 'r', encoding="utf8") 
 	frat =  open('ratingOpt.csv', 'r', encoding="utf8") 
 	next(frat)
 
@@ -60,7 +47,7 @@ def openF():
 		hashUser.insert(userID, movieID, rating)
 
 	frat.close()
-	
+
 	ftag = open('tagOpt.csv', 'r', encoding='utf8')
 	csv_ftag = csv.reader(ftag)
 	next(csv_ftag)

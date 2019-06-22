@@ -1,4 +1,4 @@
-def merge(lList, rList, byRatings, reverse):
+def merge(lList, rList, key, reverse):
 
     final = []
 
@@ -6,9 +6,14 @@ def merge(lList, rList, byRatings, reverse):
 
         if len(lList) and len(rList):
             
-            if byRatings == True:
-                left = lList[0].meanRat
-                right = rList[0].meanRat
+            if key != None:
+
+                if key == "meanRat":
+                    left = lList[0].meanRat
+                    right = rList[0].meanRat
+                elif key == "count":
+                    left = lList[0].count
+                    right = rList[0].count
             else:
                 left = lList[0]
                 right = rList[0]
@@ -32,8 +37,8 @@ def merge(lList, rList, byRatings, reverse):
     return final
 
 
-def mergesort(list, byRat = False, rev = False):
+def mergesort(list, key = None, rev = True):
 
     if len(list) <= 1: return list
     mid = int(len(list)/2)
-    return merge(mergesort(list[:mid], byRat, rev), mergesort(list[mid:], byRat, rev), byRat, rev)
+    return merge(mergesort(list[:mid], key, rev), mergesort(list[mid:], key, rev), key, rev)
