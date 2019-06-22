@@ -7,11 +7,14 @@ def searchTitle(trie, hashMovie, prefix):
 	for movieID in trie.search(prefix):
 		print(search(hashMovie, movieID))
 
+
 def searchUser(hashUser, hashMovie, userID):
 
+	user = search(hashUser, userID)
 	for sublist in user.ratings:
 		node = search(hashMovie, sublist[0])
-		print(str(node) + " | USER "+ str(userID) + " RATING: " + str(sublist[1]))
+		print("USER "+ str(userID) + " | RATING: " + str(sublist[1]) +" | " + str(node))
+
 
 def searchGenre(hashGenre, hashMovie, top, genre):
 
@@ -35,13 +38,11 @@ def searchGenre(hashGenre, hashMovie, top, genre):
 
 	for movie in mergesort(lista, True, True):
 		print(movie)
+		i += 1
 		if i >= top: break
- 
 
 	
-def searchTags(hashTag, hashMovie):
-
-	#tags = ["cute", "emotional","romantic"]
+def searchTags(tags, hashTag, hashMovie):
 
 	lista = []
 
@@ -52,15 +53,19 @@ def searchTags(hashTag, hashMovie):
 		if nodeTag == None:
 			return print("Filmes não encontrados!")
 
-		elif not lista:
-			[lista.append(movie) for movie in nodeTag.movies if movie not in lista]
+		else:
 
-		else: 
-			for movie in lista:
-				if movie not in nodeTag.movies:
-					lista.remove(movie)
+			listaSec = mergesort(nodeTag.movies)
 
-	
+			if not lista:
+				[lista.append(movie) for movie in nodeTag.movies if movie not in lista]
+
+			else: 
+				for movie in lista:
+					if movie not in listaSec:
+						lista.remove(movie)
+
+
 	for ID in mergesort(lista):
 		print(search(hashMovie,ID))
 	

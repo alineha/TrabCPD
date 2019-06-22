@@ -37,9 +37,9 @@ class HashMovie:
 
 			if movieID == self.table[code].movieID:
 
-				self.table[code] = self.nodeUpdt(self.table[code], rating)
+				self.nodeUpdt(code, rating)
 				return 
-				
+
 			else: code, t = self.colision(code, t)
 
 		self.table[code] = HashMovieNode(movieID, title, genres, rating)
@@ -52,17 +52,16 @@ class HashMovie:
 		return code, t
 
 
-	def nodeUpdt(self, node, rating):
+	def nodeUpdt(self, code, rating):
 	
-		if node.meanRat == None:
-			node.meanRat = rating
+		if self.table[code].meanRat == None:
+			self.table[code].meanRat = rating
 
 		else: 
-			node.meanRat = (rating + node.meanRat*self.taken)/(self.taken+1)
+			self.table[code].meanRat = (rating + self.table[code].meanRat*self.taken)/(self.taken+1)
 		
-		node.count += 1
-		return node
-
+		self.table[code].count += 1
+		
 
 	def printHash(self):
 		print(self)

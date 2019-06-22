@@ -1,6 +1,5 @@
 from os import system, name
 from searchFunctions import *
-import re 
 
 def clrscr(wait=True): 
   
@@ -14,7 +13,7 @@ def console(trie, hashMovie, hashUser, hashGenre, hashTag):
 
     while word != "quit":
 
-        word = input("Enter the function: ")
+        word = input("\nEnter the function: ")
         clrscr(False)
         print(word)
 
@@ -51,7 +50,7 @@ def console(trie, hashMovie, hashUser, hashGenre, hashTag):
                     tags.remove(tag)
                
             tags = [tag.lower() for tag in tags]
-            searchTag(tags, hashTag, hashMovie)
+            searchTags(tags, hashTag, hashMovie)
 
         elif word == "quit":
             print("Program ended gracefully")
