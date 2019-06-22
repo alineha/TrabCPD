@@ -1,4 +1,6 @@
-from os import system, name 
+from os import system, name
+from searchFunctions import *
+import re 
 
 def clrscr(wait=True): 
   
@@ -6,14 +8,15 @@ def clrscr(wait=True):
 
     system('cls' if name == 'nt' else 'clear')
 
-def console():
+def console(trie, hashMovie, hashUser, hashGenre, hashTag):
     
     word = None
 
     while word != "quit":
 
         word = input("Enter the function: ")
-        clrscr()
+        clrscr(False)
+        print(word)
 
         if word[:5] == "movie":
 
@@ -35,7 +38,8 @@ def console():
             try:
                 top = int(top)
                 genre = word[space:].strip()
-                searchGenre(hashGenre, top, genre)
+                print(genre)
+                searchGenre(hashGenre, hashMovie, top, genre)
             except:
                 print("Incorrect Formating")
             
@@ -47,10 +51,12 @@ def console():
                     tags.remove(tag)
                
             tags = [tag.lower() for tag in tags]
-            searchTag(tags,tagsTable,moviesTable)
+            searchTag(tags, hashTag, hashMovie)
+
+        elif word == "quit":
+            print("Program ended gracefully")
 
         else: 
             print("This command doesn't exist. Type \"quit\" to end execution.")
-            break
     
-    print("Program ended gracefully")
+    

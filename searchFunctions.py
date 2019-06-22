@@ -1,3 +1,6 @@
+from listFunctions import *
+from hashFunctions import *
+
 
 def searchTitle(trie, hashMovie, prefix):
 
@@ -16,7 +19,7 @@ def searchGenre(hashGenre, hashMovie, top, genre):
 	top = info[3 : info.find(" ")]
 	genre = info[info.find(" ") + 1 :]
 	'''
-
+	i = 0
 	lista = []
 
 	nodeGenre = searchStr(hashGenre, genre)
@@ -27,31 +30,39 @@ def searchGenre(hashGenre, hashMovie, top, genre):
 		if nodeMovie.count > 10:
 			lista.append(nodeMovie)
 
-	i = 0
-	print("\n--- TOP "+ top +" "+ genre.upper() + " ---\n")
-	
-	for i in range(top):
-		print(lista[i])
+
+	print("\n--- TOP "+ str(top) +" "+ genre.upper() + " ---\n")
+
+	for movie in mergesort(lista, True, True):
+		print(movie)
+		if i >= top: break
  
 
 	
-def searchTags(hashGenre, word):
+def searchTags(hashTag, hashMovie):
 
-	info = ["Brazil", "drugs"]
+	#tags = ["cute", "emotional","romantic"]
 
-	beg = 0
-	end = len(info)
-	
-	tags = [ info[info.find("'", beg, end) : info.find("'", info.find("'", beg, end), end)] ]
-	
-	while beg != end:
-		beg = info.find("'", beg, end)
-		tags.append(info[beg : info.find("'", beg, end)])
-
-	node = []
+	lista = []
 
 	for tag in tags:
-		node.append(searchStr(hashGenre, genre))
+
+		nodeTag = searchStr(hashTag, tag)
+		
+		if nodeTag == None:
+			return print("Filmes não encontrados!")
+
+		elif not lista:
+			[lista.append(movie) for movie in nodeTag.movies if movie not in lista]
+
+		else: 
+			for movie in lista:
+				if movie not in nodeTag.movies:
+					lista.remove(movie)
+
 	
-	#tem que arranjar um jeito de fazer a intersecção das listas desses nodos
+	for ID in mergesort(lista):
+		print(search(hashMovie,ID))
+	
  
+

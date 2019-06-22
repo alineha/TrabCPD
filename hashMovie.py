@@ -1,4 +1,4 @@
-from hash import *
+from hashFunctions import *
 
 class HashMovieNode:
 

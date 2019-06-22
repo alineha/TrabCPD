@@ -1,4 +1,4 @@
-from hash import *
+from hashFunctions import *
 from hashMovie import *
 
 class HashStringNode:
@@ -11,7 +11,7 @@ class HashStringNode:
 
 
 	def __str__(self):
-		return "STRING: {} | ".format(self.string)
+		return "STRING: {} ".format(self.string)
 
 class HashString:
 
@@ -53,19 +53,16 @@ class HashString:
 
 
 	def nodeUpdt(self, code, movie):
-	
 		self.table[code].movies.append(movie)
 
 
 	def printHash(self):
 		print(self)
-		'''
 		for nodo in self.table:
 			if nodo != None:
 				print("\n----- STRING: " + nodo.string + " -----\n")
-				for movie in nodo.movies:
-					print(str(movie))
-		'''
+				#for movie in nodo.movies:
+				print(nodo.movies)
 
 	def __str__(self):
 		return " * SIZE: {} | TAKEN: {} | RATE: {}".format(self.size, self.taken, (self.taken/self.size)*100)
