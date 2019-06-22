@@ -1,5 +1,6 @@
 from os import system, name
 from searchFunctions import *
+import re
 
 def clrscr(wait=True): 
   

@@ -40,12 +40,15 @@ class Trie:
 		lista = []
 
 		for chr in prefix:
+			found = False
 			for child in nodo.children:
 				if child.character == chr:
 					nodo = child
+					found = True
+			if not found:
+				return []
 			
-		else:
-			return nodo.listIDs()
+		return nodo.listIDs()
 	
 	def listIDs(self):
 		lista = []
