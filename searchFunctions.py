@@ -9,20 +9,20 @@ def searchTitle(trie, hashMovie, prefix):
 	for movieID in trie.search(prefix):
 		lista.append(search(hashMovie, movieID))
 
-	print("\n** per total ratings count **\n")
-	for movie in mergesort(lista, "count"):
-		print(movie)
+	return mergesort(lista, "count")
 
 
 def searchUser(hashUser, hashMovie, userID):
 
+	lista = []
 	user = search(hashUser, userID)
 	if user == None:
 		return print("User not found!")
 	else:
 		for sublist in user.ratings:
 			node = search(hashMovie, sublist[0])
-			print("USER "+ str(userID) + " | RATING: " + str(sublist[1]) +" | " + str(node))
+			lista.append([str(userID), str(sublist[1]), node])
+	return lista
 
 
 def searchGenre(hashGenre, hashMovie, top, genre):
@@ -39,12 +39,7 @@ def searchGenre(hashGenre, hashMovie, top, genre):
 			lista.append(nodeMovie)
 
 
-	print("\n--- TOP "+ str(top) +" "+ genre.upper() + " ---\n")
-
-	for movie in mergesort(lista, "meanRat"):
-		print(movie)
-		i += 1
-		if i >= top: break
+	return mergesort(lista, "meanRat")[:top]
 
 	
 def searchTags(tags, hashTag, hashMovie):
@@ -74,8 +69,7 @@ def searchTags(tags, hashTag, hashMovie):
 	for ID in lista:
 		listaSec.append(search(hashMovie, ID))
 
-	print("\n** per total ratings count **\n")
-	for movie in mergesort(listaSec, "count"): print(movie)
+	return mergesort(listaSec, "count")
 
 	
  
